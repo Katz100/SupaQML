@@ -39,5 +39,5 @@ $$ LANGUAGE sql;</code></pre>
         console.log(message);
     }}
 </pre></code>
-  <p>Insert your function parameters into the 'parameters' property as a JSON value. Call sendFunctionCall() to make a request to Supabase's API. The signals messageReived and apiCalledFailed will return the API's response</p>
+  <p>Insert your function parameters into the 'parameters' property as a JSON value. Call sendFunctionCall() to make a request to Supabase's API. The signals messageReceived and apiCalledFailed will return the API's response</p>
 </details>
