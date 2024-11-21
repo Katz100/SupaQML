@@ -7,7 +7,9 @@ Window {
     visible: true
     title: qsTr("Hello World")
 
-
+    ListModel {
+        id: lm
+    }
 
     SupaServer {
         id: server
@@ -21,10 +23,10 @@ Window {
 
         Component.onCompleted: {
             sendFunctionCall()
-            var message2 = sendQuery("test", "select=name")
-            //console.log(JSON.stringify(message2))
-            for(var i = 0; i < message2.length; i++) {
-                console.log(message2[i].name)
+            var ob = sendQuery("test", "select=name,id")
+            for (let i = 0; i < ob.length; i++)
+            {
+                lm.insert(i, {"id": ob[i].id, "name": ob[i].name})
             }
         }
 
@@ -40,5 +42,15 @@ Window {
     Text {
         id: txt
         anchors.centerIn: parent
+    }
+
+    ListView
+    {
+        id: lv
+        anchors.fill: parent
+        model: lm
+        delegate: Text {
+            text: model.id + " " + model.name
+        }
     }
 }
