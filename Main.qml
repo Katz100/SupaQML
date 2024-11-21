@@ -1,5 +1,5 @@
 import QtQuick
-import QmlSupabaseIntegration
+import SupaQML
 
 Window {
     width: 640

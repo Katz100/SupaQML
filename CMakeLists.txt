@@ -12,14 +12,13 @@ qt_add_executable(appQmlSupabaseIntegration
     main.cpp
 )
 
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/SupaQML)
+
 qt_add_qml_module(appQmlSupabaseIntegration
     URI QmlSupabaseIntegration
     VERSION 1.0
     QML_FILES
         Main.qml
-    SOURCES
-    supaserver.h
-    supaserver.cpp
 )
 
 
