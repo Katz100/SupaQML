@@ -1,3 +1,6 @@
+<h1>How To Use</h1>
+<p>In your main CMakeLists.txt:</p>
+<pre><code>add_subdirectory(SupaQML)</code></pre>
 <h1>Supabase Function Caller</h1>
 <details>
   <p>Lets you call your postgres functions using Supabase's api endpoints</p>
@@ -41,3 +44,9 @@ $$ LANGUAGE sql;</code></pre>
 </pre></code>
   <p>Insert your function parameters into the 'parameters' property as a JSON value. Call sendFunctionCall() to make a request to Supabase's API. The signals messageReceived and apiCalledFailed will return the API's response</p>
 </details>
+<h1>sendQuery(QString table, QString query)</h1>
+<details>
+  <p>Performs a query on your table via PostgREST. Returns a response as a <code>QJsonArray</code>.</p>
+  <p>For for information on how to structure your queries, visit https://docs.postgrest.org/en/v12/references/api/tables_views.html</p>
+</details>
+                                
