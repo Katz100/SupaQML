@@ -1,5 +1,5 @@
-#ifndef SERVER_H
-#define SERVER_H
+#ifndef SupaServer_H
+#define SupaServer_H
 
 #include <QObject>
 #include <QQmlEngine>
@@ -11,7 +11,7 @@
 #include <QEventLoop>
 #include <QJsonArray>
 
-class Server : public QObject
+class SupaServer : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString projectId READ projectId WRITE setProjectId NOTIFY projectIdChanged FINAL)
@@ -21,7 +21,7 @@ class Server : public QObject
     Q_PROPERTY(bool isUrlValid READ isUrlValid WRITE setIsUrlValid NOTIFY isUrlValidChanged FINAL)
     QML_ELEMENT
 public:
-    explicit Server(QObject *parent = nullptr);
+    explicit SupaServer(QObject *parent = nullptr);
 
     Q_INVOKABLE void sendFunctionCall();
     Q_INVOKABLE QJsonArray sendQuery(QString table, QString query);
@@ -70,4 +70,4 @@ private:
 
 };
 
-#endif // SERVER_H
+#endif // SupaServer_H

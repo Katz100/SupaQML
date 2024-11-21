@@ -18,8 +18,8 @@ qt_add_qml_module(appQmlSupabaseIntegration
     QML_FILES
         Main.qml
     SOURCES
-    server.h
-    server.cpp
+    supaserver.h
+    supaserver.cpp
 )
 
 

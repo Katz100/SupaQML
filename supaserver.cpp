@@ -1,15 +1,15 @@
-#include "server.h"
+#include "SupaServer.h"
 
-Server::Server(QObject *parent)
+SupaServer::SupaServer(QObject *parent)
     : QObject{parent}
 {}
 
-QString Server::key() const
+QString SupaServer::key() const
 {
     return m_key;
 }
 
-void Server::setKey(const QString &newKey)
+void SupaServer::setKey(const QString &newKey)
 {
     if (m_key == newKey)
         return;
@@ -17,12 +17,12 @@ void Server::setKey(const QString &newKey)
     emit keyChanged();
 }
 
-QJsonObject Server::parameters() const
+QJsonObject SupaServer::parameters() const
 {
     return m_parameters;
 }
 
-void Server::setParameters(const QJsonObject &newParameters)
+void SupaServer::setParameters(const QJsonObject &newParameters)
 {
     if (m_parameters == newParameters)
         return;
@@ -30,12 +30,12 @@ void Server::setParameters(const QJsonObject &newParameters)
     emit parametersChanged();
 }
 
-bool Server::isUrlValid() const
+bool SupaServer::isUrlValid() const
 {
     return m_isUrlValid;
 }
 
-void Server::setIsUrlValid(bool newIsUrlValid)
+void SupaServer::setIsUrlValid(bool newIsUrlValid)
 {
     if (m_isUrlValid == newIsUrlValid)
         return;
@@ -43,7 +43,7 @@ void Server::setIsUrlValid(bool newIsUrlValid)
     emit isUrlValidChanged();
 }
 
-void Server::sendFunctionCall()
+void SupaServer::sendFunctionCall()
 {
     QString new_url = QString("https://%1.supabase.co/rest/v1/rpc").arg(m_projectId) + "/" + m_func;
     m_request.setRawHeader("apikey", m_key.toUtf8());
@@ -70,7 +70,7 @@ void Server::sendFunctionCall()
     }
 }
 
-QJsonArray Server::sendQuery(QString table, QString query)
+QJsonArray SupaServer::sendQuery(QString table, QString query)
 {
     QString new_url = QString("https://%1.supabase.co/rest/v1/%2?%3").arg(m_projectId, table, query);
     qDebug() << new_url;
@@ -98,12 +98,12 @@ QJsonArray Server::sendQuery(QString table, QString query)
 }
 
 
-QString Server::func() const
+QString SupaServer::func() const
 {
     return m_func;
 }
 
-void Server::setFunc(const QString &newFunc)
+void SupaServer::setFunc(const QString &newFunc)
 {
     if (m_func == newFunc)
         return;
@@ -111,12 +111,12 @@ void Server::setFunc(const QString &newFunc)
     emit funcChanged();
 }
 
-QString Server::projectId() const
+QString SupaServer::projectId() const
 {
     return m_projectId;
 }
 
-void Server::setProjectId(const QString &newProjectId)
+void SupaServer::setProjectId(const QString &newProjectId)
 {
     if (m_projectId == newProjectId)
         return;

@@ -9,7 +9,7 @@ Window {
 
 
 
-    Server {
+    SupaServer {
         id: server
         func: "testget"
         projectId: "hvfufeffqgblugookder"
