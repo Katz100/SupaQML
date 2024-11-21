@@ -4,19 +4,6 @@ Server::Server(QObject *parent)
     : QObject{parent}
 {}
 
-QUrl Server::url() const
-{
-    return m_url;
-}
-
-void Server::setUrl(const QUrl &newUrl)
-{
-    if (m_url == newUrl)
-        return;
-    m_url = newUrl;
-    emit urlChanged();
-}
-
 QString Server::key() const
 {
     return m_key;
@@ -62,7 +49,7 @@ void Server::sendFunctionCall()
     m_request.setRawHeader("apikey", m_key.toUtf8());
     m_request.setUrl(QUrl(new_url));
     QJsonDocument doc(m_parameters);
-    QByteArray data = doc.toJson();
+    QByteArray data = doc.toJson(QJsonDocument::Compact);
 
     QNetworkReply* reply = m_manager.post(m_request, data);
 
@@ -82,6 +69,34 @@ void Server::sendFunctionCall()
         emit apiCallFailed(reply->errorString());
     }
 }
+
+QJsonArray Server::sendQuery(QString table, QString query)
+{
+    QString new_url = QString("https://%1.supabase.co/rest/v1/%2?%3").arg(m_projectId, table, query);
+    qDebug() << new_url;
+    m_request.setRawHeader("apikey", m_key.toUtf8());
+    m_request.setUrl(QUrl(new_url));
+
+    QNetworkReply* reply = m_manager.get(m_request);
+
+    QEventLoop eventLoop;
+    QObject::connect(reply, &QNetworkReply::finished, &eventLoop, &QEventLoop::quit);
+    eventLoop.exec();
+
+    if (reply->error() == QNetworkReply::NoError)
+    {
+        QByteArray response = reply->readAll();
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(response);
+        return jsonDoc.array();
+    }
+    else
+    {
+        return QJsonArray{{"Error, reply not sent"}};
+    }
+
+    return QJsonArray();
+}
+
 
 QString Server::func() const
 {

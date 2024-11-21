@@ -4,15 +4,16 @@
 #include <QObject>
 #include <QQmlEngine>
 #include <QJsonObject>
+#include <QUrlQuery>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QJsonDocument>
 #include <QEventLoop>
+#include <QJsonArray>
 
 class Server : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QUrl url READ url WRITE setUrl NOTIFY urlChanged FINAL)
     Q_PROPERTY(QString projectId READ projectId WRITE setProjectId NOTIFY projectIdChanged FINAL)
     Q_PROPERTY(QString key READ key WRITE setKey NOTIFY keyChanged FINAL)
     Q_PROPERTY(QString func READ func WRITE setFunc NOTIFY funcChanged FINAL)
@@ -23,9 +24,7 @@ public:
     explicit Server(QObject *parent = nullptr);
 
     Q_INVOKABLE void sendFunctionCall();
-
-    QUrl url() const;
-    void setUrl(const QUrl &newUrl);
+    Q_INVOKABLE QJsonArray sendQuery(QString table, QString query);
 
     QString key() const;
     void setKey(const QString &newKey);
@@ -68,6 +67,7 @@ private:
     QNetworkAccessManager m_manager;
     QNetworkRequest m_request;
     QString m_projectId;
+
 };
 
 #endif // SERVER_H
