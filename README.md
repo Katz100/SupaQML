@@ -1,6 +1,8 @@
 <h1>How To Use</h1>
 <p>In your main CMakeLists.txt:</p>
 <pre><code>add_subdirectory(SupaQML)</code></pre>
+<p>In your QML file</p>
+<pre><code>import SupaQML</code></pre>
 <h1>Supabase Function Caller</h1>
 <details>
   <p>Lets you call your postgres functions using Supabase's api endpoints</p>
