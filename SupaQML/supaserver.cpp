@@ -43,10 +43,11 @@ void SupaServer::setIsUrlValid(bool newIsUrlValid)
     emit isUrlValidChanged();
 }
 
-void SupaServer::sendFunctionCall()
+QVariant SupaServer::sendFunctionCall()
 {
     QString new_url = QString("https://%1.supabase.co/rest/v1/rpc").arg(m_projectId) + "/" + m_func;
     m_request.setRawHeader("apikey", m_key.toUtf8());
+    m_request.setRawHeader("Authorization", QString("Bearer %1").arg(m_authorization).toUtf8());
     m_request.setUrl(QUrl(new_url));
     QJsonDocument doc(m_parameters);
     QByteArray data = doc.toJson(QJsonDocument::Compact);
@@ -61,20 +62,22 @@ void SupaServer::sendFunctionCall()
         setIsUrlValid(true);
         QByteArray response = reply->readAll();
         QJsonDocument jsonDoc = QJsonDocument::fromJson(response);
-        emit messageReceived(jsonDoc.object());
         reply->deleteLater();
+        return jsonDoc.toVariant();
     }
     else {
+        reply->deleteLater();
         setIsUrlValid(false);
         emit apiCallFailed(reply->errorString());
+        return QVariant();
     }
 }
 
-QJsonArray SupaServer::sendQuery(QString table, QString query)
+QVariant SupaServer::sendQuery(QString table, QString query)
 {
     QString new_url = QString("https://%1.supabase.co/rest/v1/%2?%3").arg(m_projectId, table, query);
-    qDebug() << new_url;
     m_request.setRawHeader("apikey", m_key.toUtf8());
+    m_request.setRawHeader("Authorization", QString("Bearer %1").arg(m_authorization).toUtf8());
     m_request.setUrl(QUrl(new_url));
 
     QNetworkReply* reply = m_manager.get(m_request);
@@ -87,14 +90,16 @@ QJsonArray SupaServer::sendQuery(QString table, QString query)
     {
         QByteArray response = reply->readAll();
         QJsonDocument jsonDoc = QJsonDocument::fromJson(response);
-        return jsonDoc.array();
+        reply->deleteLater();
+        return jsonDoc.toVariant();
     }
     else
     {
-        return QJsonArray{{"Error, reply not sent"}};
+        reply->deleteLater();
+        return QVariant();
     }
 
-    return QJsonArray();
+    return QVariant();
 }
 
 
@@ -122,4 +127,17 @@ void SupaServer::setProjectId(const QString &newProjectId)
         return;
     m_projectId = newProjectId;
     emit projectIdChanged();
+}
+
+QString SupaServer::authorization() const
+{
+    return m_authorization;
+}
+
+void SupaServer::setAuthorization(const QString &newAuthorization)
+{
+    if (m_authorization == newAuthorization)
+        return;
+    m_authorization = newAuthorization;
+    emit authorizationChanged();
 }

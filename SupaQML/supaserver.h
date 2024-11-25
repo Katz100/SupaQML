@@ -19,12 +19,13 @@ class SupaServer : public QObject
     Q_PROPERTY(QString func READ func WRITE setFunc NOTIFY funcChanged FINAL)
     Q_PROPERTY(QJsonObject parameters READ parameters WRITE setParameters NOTIFY parametersChanged FINAL)
     Q_PROPERTY(bool isUrlValid READ isUrlValid WRITE setIsUrlValid NOTIFY isUrlValidChanged FINAL)
+    Q_PROPERTY(QString authorization READ authorization WRITE setAuthorization NOTIFY authorizationChanged FINAL)
     QML_ELEMENT
 public:
     explicit SupaServer(QObject *parent = nullptr);
 
-    Q_INVOKABLE void sendFunctionCall();
-    Q_INVOKABLE QJsonArray sendQuery(QString table, QString query);
+    Q_INVOKABLE QVariant sendFunctionCall();
+    Q_INVOKABLE QVariant sendQuery(QString table, QString query);
 
     QString key() const;
     void setKey(const QString &newKey);
@@ -42,6 +43,9 @@ public:
     QString projectId() const;
     void setProjectId(const QString &newProjectId);
 
+    QString authorization() const;
+    void setAuthorization(const QString &newAuthorization);
+
 signals:
 
     void messageReceived(QJsonObject message);
@@ -58,6 +62,8 @@ signals:
 
     void projectIdChanged();
 
+    void authorizationChanged();
+
 private:
     QUrl m_url;
     QString m_key;
@@ -68,6 +74,7 @@ private:
     QNetworkRequest m_request;
     QString m_projectId;
 
+    QString m_authorization;
 };
 
 #endif // SupaServer_H

@@ -31,7 +31,7 @@ Window {
             }
 
         Component.onCompleted: {
-            sendFunctionCall()
+            txt.text = sendFunctionCall().name
             var ob = sendQuery("test", "select=name,id")
             for (let i = 0; i < ob.length; i++)
             {
@@ -39,9 +39,7 @@ Window {
             }
         }
 
-        onMessageReceived: {
-            txt.text = "Hello %1.".arg(message["name"])
-        }
+
 
         onApiCallFailed: {
             console.log(message)
