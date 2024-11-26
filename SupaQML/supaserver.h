@@ -51,7 +51,6 @@ signals:
     void messageReceived(QJsonObject message);
     void apiCallFailed(QString message);
 
-    void urlChanged();
     void keyChanged();
 
     void parametersChanged();

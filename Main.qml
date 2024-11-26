@@ -20,6 +20,22 @@ Window {
         }
     }
 
+    SupaAuth {
+        id: auth
+        projectId: "hvfufeffqgblugookder"
+        key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2ZnVmZWZmcWdibHVnb29rZGVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE0NTA2NjcsImV4cCI6MjA0NzAyNjY2N30._elTtX-VMR54gcHfn9rO6jm4E3etdXN0Dp25MZu_YYs"
+        method: SupaAuth.POST
+        body: {
+            "email": "cody.hopkins108@gmail.com",
+            "password": "mypassword"
+        }
+        endpoint: SupaAuth.SIGNIN
+
+        Component.onCompleted: {
+            console.log(sendAuth().access_token)
+        }
+    }
+
     SupaServer {
         id: server
         func: "testget"

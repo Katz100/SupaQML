@@ -14,6 +14,8 @@ qt_add_qml_module(${PROJECT_NAME}
     supaserver.cpp
     supasocket.h
     supasocket.cpp
+    supaauth.h
+    supaauth.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
