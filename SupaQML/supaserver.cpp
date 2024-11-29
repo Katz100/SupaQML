@@ -62,6 +62,7 @@ QVariant SupaServer::sendFunctionCall()
         setIsUrlValid(true);
         QByteArray response = reply->readAll();
         QJsonDocument jsonDoc = QJsonDocument::fromJson(response);
+        qDebug() << jsonDoc;
         reply->deleteLater();
         return jsonDoc.toVariant();
     }
