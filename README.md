@@ -3,9 +3,9 @@
 <pre><code>add_subdirectory(SupaQML)</code></pre>
 <p>In your QML file</p>
 <pre><code>import SupaQML</code></pre>
-<h1>Supabase Function Caller</h1>
+<h1>SupaServer</h1>
 <details>
-  <p>Lets you call your postgres functions using Supabase's api endpoints</p>
+  <p>Lets you call your postgres functions or queries using Supabase's api endpoints</p>
   <h1>List of properties</h1>
   <ul>
     <li>projectId</li>
