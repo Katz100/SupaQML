@@ -13,6 +13,7 @@
     <li>func</li>
     <li>parameter</li>
     <li>isUrlValid</li>
+    <li>authorization</li>
   </ul>
   <h3>Example using the following postgres function</h3>
   <pre><code>CREATE OR REPLACE FUNCTION testGet(u_id integer, u_name text) 
@@ -46,9 +47,9 @@ $$ LANGUAGE sql;</code></pre>
 </pre></code>
   <p>Insert your function parameters into the 'parameters' property as a JSON value. Call sendFunctionCall() to make a request to Supabase's API. The signals messageReceived and apiCalledFailed will return the API's response</p>
 </details>
-<h1>sendQuery(QString table, QString query)</h1>
+<h2>sendQuery(QString table, QString query)</h2>
 <details>
-  <p>Performs a query on your table via PostgREST. Returns a response as a <code>QJsonArray</code>.</p>
-  <p>For for information on how to structure your queries, visit https://docs.postgrest.org/en/v12/references/api/tables_views.html</p>
+  <p>Performs a query on your table via PostgREST. Returns a response as a <code>QVariant</code>.</p>
+  <p>For more information on how to structure your queries, visit https://docs.postgrest.org/en/v12/references/api/tables_views.html</p>
 </details>
                                 
