@@ -19,20 +19,7 @@ SupaSocket::SupaSocket(QObject *parent)
     });
     timer->start(30000);
     QObject::connect(&m_webSocket, &QWebSocket::connected, this, [this](){
-        QJsonObject payload;
-        payload["event"] = "phx_join";
-        payload["topic"] = "realtime:public:test"; // Specify schema and table in the topic
-        payload["ref"] = "1";
-
-        // Additional configuration if needed
-        QJsonObject config;
-        config["schema"] = "public";
-        config["table"] = "test";
-
-        payload["payload"] = config;
-
-        // Send the constructed JSON payload as a text message
-        sendTextMessage(payload);
+        sendTextMessage(m_payload);
     });
 
     QObject::connect(&m_webSocket, &QWebSocket::disconnected, this, [](){
