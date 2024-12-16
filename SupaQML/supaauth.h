@@ -36,7 +36,10 @@ public:
     {
         SIGNUP,
         SIGNIN,
-        REFRESH
+        REFRESH,
+        RECOVER,
+        LOGOUT,
+        USER
         //to be added
     };
     Q_ENUM(Endpoint)

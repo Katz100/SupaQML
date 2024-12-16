@@ -19,6 +19,15 @@ QVariant SupaAuth::sendAuth()
     case REFRESH:
         new_url.append("/token?grant_type=refresh");
         break;
+    case RECOVER:
+        new_url.append("/recover");
+        break;
+    case USER:
+        new_url.append("/user");
+        break;
+    case LOGOUT:
+        new_url.append("/logout");
+        break;
     default:
         return QVariant("Error: not a valid ENUM.");
         break;
